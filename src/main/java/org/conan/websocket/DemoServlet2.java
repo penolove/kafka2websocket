@@ -1,25 +1,22 @@
-
 package org.conan.websocket;
 
 import java.io.IOException;
-
 import java.util.Arrays;
 import java.util.Properties;
-
 
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
-
-
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-@ServerEndpoint("/rd1")
-public class DemoServlet {
+
+
+@ServerEndpoint("/rd2")
+public class DemoServlet2 {
 
     private Session session;
     
@@ -43,7 +40,7 @@ public class DemoServlet {
 		consumer = new KafkaConsumer<>(prop);
 		
 		session.getBasicRemote().sendText("Kafka is coming");
-		consumer.subscribe(Arrays.asList("recordtp1"));
+		consumer.subscribe(Arrays.asList("recordtp4"));
 		while (true) {
             ConsumerRecords<String, String> records = consumer.poll(500);
             for (ConsumerRecord<String, String> record : records) {
@@ -61,5 +58,6 @@ public class DemoServlet {
     public void shutdonw(){
     	consumer.close();
     }
+
 
 }
