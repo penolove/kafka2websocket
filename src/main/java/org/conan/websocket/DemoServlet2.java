@@ -15,7 +15,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 
 
-@ServerEndpoint("/rd2")
+@ServerEndpoint("/Outputrate")
 public class DemoServlet2 {
 
     private Session session;
@@ -30,7 +30,7 @@ public class DemoServlet2 {
 	@OnOpen
 	public void cumsumerasStart(Session session)throws IOException {
 		this.session = session;
-		session.getBasicRemote().sendText("mo sow world");
+		session.getBasicRemote().sendText("0");
 		prop.put("bootstrap.servers", "172.16.20.80:9092,172.16.20.77:9092,172.16.20.78:9092,172.16.20.79:9092,172.16.20.81:9092");
 		prop.put("group.id", "test");
 		prop.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
@@ -39,8 +39,8 @@ public class DemoServlet2 {
 		
 		consumer = new KafkaConsumer<>(prop);
 		
-		session.getBasicRemote().sendText("Kafka is coming");
-		consumer.subscribe(Arrays.asList("recordtp4"));
+		//session.getBasicRemote().sendText("Kafka is coming");
+		consumer.subscribe(Arrays.asList("Outputrate"));
 		while (true) {
             ConsumerRecords<String, String> records = consumer.poll(500);
             for (ConsumerRecord<String, String> record : records) {
